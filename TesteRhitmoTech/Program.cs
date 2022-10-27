@@ -16,13 +16,15 @@ class Solution
 {
     static void Main(string[] args)
     {
-        Menu.ActionMenu();
+        Menu menu = new Menu();
+
+        menu.ActionMenu();
     }
 }
 
 class Menu
 {
-    public static void ActionMenu()
+    public void ActionMenu()
     {
         string choice;
         do
@@ -53,7 +55,7 @@ class Menu
         } while (choice != "3");
     }
 
-    public static void InsertRemoveMenu(Boolean insert)
+    public void InsertRemoveMenu(Boolean insert)
     {
         string choice;
         string action = insert ? "INSERIR" : "REMOVER";
