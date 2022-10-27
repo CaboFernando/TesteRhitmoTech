@@ -3,11 +3,14 @@
 /*
     TO-DO
 
- - Criar um menu para o usuário escolher oque deseja fazer (Inserir ou retirar um veículo)
- - Criar sub-menu chamado após o primeiro menu, para escolher o tipo do veículo (moto, carro ou van)
- - De acordo com as escolhas nos menu's, retornar os status do estacionamento (os métodos)
- - Criar opção que aparecerá após os status, para ir ao menu novamente ou sair da aplicação.
+ - [100%] Criar um menu para o usuário escolher oque deseja fazer (Inserir ou retirar um veículo)
+ - [50%] Criar sub-menu chamado após o primeiro menu, para escolher o tipo do veículo (moto, carro ou van)
+ - [0%] De acordo com as escolhas nos menu's, retornar os status do estacionamento (os métodos)
+ - [0%] Criar opção que aparecerá após os status, para ir ao menu novamente ou sair da aplicação.
 */
+
+// To execute C#, please define "static void Main" on a class
+// named Solution.
 
 class Solution
 {
@@ -69,12 +72,15 @@ class Menu
             {
                 case "1":
                     Console.WriteLine($"Você {switchAction} uma moto");
+                    // Lembrar de retornar os status após as ações
                     break;
                 case "2":
                     Console.WriteLine($"Você {switchAction} um carro");
+                    // Lembrar de retornar os status após as ações
                     break;
                 case "3":
                     Console.WriteLine($"Você {switchAction} uma van");
+                    // Lembrar de retornar os status após as ações
                     break;
                 case "4":
                     Console.WriteLine("Voltando...\n");
@@ -87,5 +93,3 @@ class Menu
         } while (choice != "4");
     }
 }
-
-
