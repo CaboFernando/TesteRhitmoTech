@@ -8,7 +8,7 @@
  - [100%] De acordo com as escolhas nos menu's, retornar os status do estacionamento (os métodos)
  - [100%] Criar opção que aparecerá após os status, para ir ao menu novamente ou sair da aplicação.
  - [100%] Criação opções no menu para verificar os status das vagas
- - [0%] Lógica para salvar veículos em vagas diferentes
+ - [100%] Lógica para salvar veículos em vagas diferentes
 */
 
 /*
@@ -16,6 +16,8 @@
  - vaga para carro -> 2 espaços
  - vaga para van -> 6 espaços
 */
+
+// Link do repositório no GitHub: https://github.com/CaboFernando/TesteRhitmoTech
 
 class Solution
 {
@@ -29,9 +31,12 @@ class Solution
 
 class Estacionamento
 {
-    string[] motos = new string[4];
-    string[] carros = new string[4];
-    string[] vans = new string[4];
+    int qtdMotos = 0;
+    int qtdCarros = 0;
+    int qtdVans = 0;
+    int vagasMotos = 0;
+    int vagasCarros = 0;
+    int vagasVans = 0;
 
     public void ActionMenu()
     {
@@ -111,174 +116,138 @@ class Estacionamento
             case 1:
                 if (incert)
                 {
-                    if (HasVacancies(motos))
+                    if(vagasMotos < 4)
                     {
-                        AddVehicle(typeVehicle);
-                        Console.WriteLine($"\nVocê INSERIU uma moto\n");
+                        Console.WriteLine($"\nVocê INSERIU uma moto na vaga para motos\n");
+                        qtdMotos++;
+                        vagasMotos++;
                         break;
                     }
-                    Console.WriteLine($"\nNão tem mais vagas para motos\n");
+                    if(vagasMotos == 4 && vagasCarros < 4)
+                    {
+                        Console.WriteLine($"\nAs vagas para motos estão cheias!\n");
+                        Console.WriteLine($"\nVocê INSERIU uma moto na vaga para carros\n");
+                        qtdMotos++;
+                        vagasCarros++;
+                        break;
+                    }
+                    if (vagasMotos == 4 && vagasCarros == 4 && vagasVans < 4)
+                    {
+                        Console.WriteLine($"\nAs vagas para carros estão cheias!\n");
+                        Console.WriteLine($"\nVocê INSERIU uma moto na vaga para vans\n");
+                        qtdMotos++;
+                        vagasVans++;
+                        break;
+                    }                    
+                    Console.WriteLine($"\nTodas vagas para motos do estacionamento estão cheias!\n");
                     break;
                 }
                 else
                 {
-                    if (HasNoVacancies(motos))
+                    if (qtdMotos > 8 && vagasMotos == 4 && vagasCarros == 4 && vagasVans == 4)
                     {
-                        RemoveVehicle(typeVehicle);
-                        Console.WriteLine($"\nVocê REMOVEU uma moto\n");
+                        Console.WriteLine($"\nVocê REMOVEU uma moto da vaga para vans\n");
+                        qtdMotos--;
+                        vagasVans--;
                         break;
                     }
-                    Console.WriteLine($"\nNão tem mais motos para se retirar\n");
+                    if (qtdMotos > 4 && vagasMotos == 4 && vagasCarros > 0)
+                    {
+                        Console.WriteLine($"\nVocê REMOVEU uma moto da vaga para carros\n");
+                        qtdMotos--;
+                        vagasCarros--;
+                        break;
+                    }
+                    if (qtdMotos > 0 && vagasMotos > 0)
+                    {
+                        Console.WriteLine($"\nVocê REMOVEU uma moto da vaga para vans\n");
+                        qtdMotos--;
+                        vagasMotos--;
+                        break;
+                    }
+                    Console.WriteLine($"\nTodas vagas para motos do estacionamento estão vazias!\n");
                     break;
                 }
             case 2:
                 if (incert)
                 {
-                    if (HasVacancies(carros))
+                    if (vagasCarros < 4)
                     {
-                        AddVehicle(typeVehicle);
-                        Console.WriteLine($"\nVocê INSERIU um carro\n");
+                        Console.WriteLine($"\nVocê INSERIU um carro na vaga para carros\n");
+                        qtdCarros++;
+                        vagasCarros++;
                         break;
                     }
-                    Console.WriteLine($"\nNão tem mais vagas para carros\n");
+                    if (vagasCarros == 4 && vagasVans < 4)
+                    {
+                        Console.WriteLine($"\nAs vagas para carros estão cheias!\n");
+                        Console.WriteLine($"\nVocê INSERIU um carro na vaga para vans\n");
+                        qtdCarros++;
+                        vagasVans++;
+                        break;
+                    }
+                    Console.WriteLine($"\nTodas vagas para carros do estacionamento estão cheias!\n");
                     break;
                 }
                 else
                 {
-                    if (HasNoVacancies(carros))
+                    if (qtdCarros > 4 && vagasCarros == 4 && vagasVans > 0)
                     {
-                        RemoveVehicle(typeVehicle);
-                        Console.WriteLine($"\nVocê REMOVEU um carro\n");
+                        Console.WriteLine($"\nVocê REMOVEU um carro da vaga para vans\n");
+                        qtdCarros--;
+                        vagasVans--;
                         break;
                     }
-                    Console.WriteLine($"\nNão tem mais carros para se retirar\n");
+                    if (qtdCarros > 0 && vagasCarros > 0)
+                    {
+                        Console.WriteLine($"\nVocê REMOVEU um carro da vaga para carros\n");
+                        qtdCarros--;
+                        vagasCarros--;
+                        break;
+                    }
+                    Console.WriteLine($"\nTodas vagas para carros do estacionamento estão vazias!\n");
                     break;
                 }
             case 3:
                 if (incert)
                 {
-                    if (HasVacancies(vans))
+                    if (vagasVans < 4)
                     {
-                        AddVehicle(typeVehicle);
-                        Console.WriteLine($"\nVocê INSERIU uma van\n");
+                        Console.WriteLine($"\nVocê INSERIU uma van na vaga para vans\n");
+                        qtdVans++;
+                        vagasVans++;
                         break;
                     }
-                    Console.WriteLine($"\nNão tem mais vagas para vans\n");
+                    if (vagasVans == 4 && vagasCarros <= 1)
+                    {
+                        Console.WriteLine($"\nAs vagas para vans estão cheias!\n");
+                        Console.WriteLine($"\nVocê INSERIU uma van na vaga para 3 carros\n");
+                        qtdVans++;
+                        vagasCarros += 3;
+                        break;
+                    }
+                    Console.WriteLine($"\nTodas vagas para vans do estacionamento estão cheias!\n");
                     break;
                 }
                 else
                 {
-                    if (HasNoVacancies(vans))
+                    if (qtdVans > 4 && vagasVans == 4 && vagasCarros > 2)
                     {
-                        RemoveVehicle(typeVehicle);
-                        Console.WriteLine($"\nVocê REMOVEU uma van\n");
+                        Console.WriteLine($"\nVocê REMOVEU uma van da vaga para 3 carros\n");
+                        qtdVans--;
+                        vagasCarros -= 3;
                         break;
                     }
-                    Console.WriteLine($"\nNão tem mais vans para se retirar\n");
+                    if (qtdVans > 0 && vagasVans > 0)
+                    {
+                        Console.WriteLine($"\nVocê REMOVEU uma van da vaga para vans\n");
+                        qtdVans--;
+                        vagasVans--;
+                        break;
+                    }
+                    Console.WriteLine($"\nTodas vagas para vans do estacionamento estão vazias!\n");
                     break;
                 }
-            default:
-                break;
-        }
-    }
-
-    public bool HasVacancies(string[] vehicles)
-    {
-        for (int i = 0; i < vehicles.Length; i++)
-        {
-            if (vehicles[i] == null) return true;
-        }
-
-        return false;
-    }
-
-    public bool HasNoVacancies(string[] vehicles)
-    {
-        for (int i = 0; i < vehicles.Length; i++)
-        {
-            if (vehicles[i] != null) return true;
-        }
-
-        return false;
-    }
-
-    public void AddVehicle(int typeVehicle)
-    {
-        switch (typeVehicle)
-        {
-            case 1:
-                for (int i = 0; i < motos.Length; i++)
-                {
-                    if (motos[i] == null)
-                    {
-                        motos[i] = "1";
-                        break;
-                    }
-
-                }
-                break;
-            case 2:
-                for (int i = 0; i < carros.Length; i++)
-                {
-                    if (carros[i] == null)
-                    {
-                        carros[i] = "1";
-                        break;
-                    }
-
-                }
-                break;
-            case 3:
-                for (int i = 0; i < vans.Length; i++)
-                {
-                    if (vans[i] == null)
-                    {
-                        vans[i] = "1";
-                        break;
-                    }
-                }
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    public void RemoveVehicle(int typeVehicle)
-    {
-        switch (typeVehicle)
-        {
-            case 1:
-                for (int i = 0; i < motos.Length; i++)
-                {
-                    if (motos[i] != null)
-                    {
-                        motos[i] = null;
-                        break;
-                    }
-                }
-                break;
-            case 2:
-                for (int i = 0; i < carros.Length; i++)
-                {
-                    if (carros[i] != null)
-                    {
-                        carros[i] = null;
-                        break;
-                    }
-                }
-                break;
-            case 3:
-                for (int i = 0; i < vans.Length; i++)
-                {
-                    if (vans[i] != null)
-                    {
-                        vans[i] = null;
-                        break;
-                    }
-                }
-                break;
-
             default:
                 break;
         }
@@ -286,13 +255,15 @@ class Estacionamento
 
     public void CheckStatus()
     {
-        int qtdMoto = motos.Where(x => x == null).Count();
-        int qtdCar = carros.Where(x => x == null).Count();
-        int qtdVan = vans.Where(x => x == null).Count();
+        int total = 12;
+
 
         Console.WriteLine("\nStatus do estacionamento:\n");
-        Console.WriteLine("- Quantidade de vagas totais: 12");
-        Console.WriteLine($"- Quantidade de vagas restantes: \n\tMotos --> {qtdMoto} \n\tCarros -> {qtdCar} \n\tVans ---> {qtdVan}\n");        
+        Console.WriteLine($"- Quantidade de vagas totais: {total}");
+        Console.WriteLine($"- Quantidade de motos: {qtdMotos}");
+        Console.WriteLine($"- Quantidade de carros: {qtdCarros}");
+        Console.WriteLine($"- Quantidade de vans: {qtdVans}");
+        Console.WriteLine($"- Quantidade de vagas restantes: \n\tMotos --> 4/{vagasMotos} \n\tCarros -> 4/{vagasCarros} \n\tVans ---> 4/{vagasVans}\n");        
     }
 
 }
