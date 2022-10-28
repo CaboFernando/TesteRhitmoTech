@@ -7,7 +7,8 @@
  - [100%] Criar sub-menu chamado após o primeiro menu, para escolher o tipo do veículo (moto, carro ou van)
  - [100%] De acordo com as escolhas nos menu's, retornar os status do estacionamento (os métodos)
  - [100%] Criar opção que aparecerá após os status, para ir ao menu novamente ou sair da aplicação.
- - [0%] Criação opções no menu para verificar os status das vagas
+ - [100%] Criação opções no menu para verificar os status das vagas
+ - [0%] Lógica para salvar veículos em vagas diferentes
 */
 
 /*
@@ -40,7 +41,8 @@ class Estacionamento
             Console.WriteLine("Escolha oque você deseja fazer:\n");
             Console.WriteLine("1 - Inserir um veículo");
             Console.WriteLine("2 - Retirar um veículo");
-            Console.WriteLine("3 - Sair da aplicação\n");
+            Console.WriteLine("3 - Status do estacionamento");
+            Console.WriteLine("4 - Sair da aplicação\n");
 
             choice = Console.ReadLine();
 
@@ -53,24 +55,26 @@ class Estacionamento
                     InsertRemoveMenu(false);
                     break;
                 case "3":
-                    Console.WriteLine("Tchau Tchau!\n");
+                    CheckStatus();
+                    break;
+                case "4":
+                    Console.WriteLine("\nTchau Tchau!\n");
                     break;
                 default:
-                    Console.WriteLine("{0} Não é um opção!", choice);
+                    Console.WriteLine("\n{0} Não é um opção!\n", choice);
                     break;
             }
 
-        } while (choice != "3");
+        } while (choice != "4");
     }
 
     public void InsertRemoveMenu(bool insert)
     {
         string choice;
         string action = insert ? "INSERIR" : "REMOVER";
-        string switchAction = insert ? "INSERIU" : "REMOVEU";
         do
         {
-            Console.WriteLine($"Oque você deseja {action} no estacionamento:\n");
+            Console.WriteLine($"\nOque você deseja {action} no estacionamento:\n");
             Console.WriteLine($"1 - {action} uma moto");
             Console.WriteLine($"2 - {action} um carro");
             Console.WriteLine($"3 - {action} uma van");
@@ -90,10 +94,10 @@ class Estacionamento
                     AddRemoveVeiculo(insert, int.Parse(choice));
                     break;
                 case "4":
-                    Console.WriteLine("Voltando...\n");
+                    Console.WriteLine("\nVoltando...\n");
                     break;
                 default:
-                    Console.WriteLine("{0} Não é um opção!", choice);
+                    Console.WriteLine("\n{0} Não é um opção!\n", choice);
                     break;
             }
 
@@ -110,10 +114,10 @@ class Estacionamento
                     if (HasVacancies(motos))
                     {
                         AddVehicle(typeVehicle);
-                        Console.WriteLine($"Você INSERIU uma moto\n");
+                        Console.WriteLine($"\nVocê INSERIU uma moto\n");
                         break;
                     }
-                    Console.WriteLine($"Não tem mais vagas para motos");
+                    Console.WriteLine($"\nNão tem mais vagas para motos\n");
                     break;
                 }
                 else
@@ -121,10 +125,10 @@ class Estacionamento
                     if (HasNoVacancies(motos))
                     {
                         RemoveVehicle(typeVehicle);
-                        Console.WriteLine($"Você REMOVEU uma moto\n");
+                        Console.WriteLine($"\nVocê REMOVEU uma moto\n");
                         break;
                     }
-                    Console.WriteLine($"Não tem mais motos para se retirar");
+                    Console.WriteLine($"\nNão tem mais motos para se retirar\n");
                     break;
                 }
             case 2:
@@ -133,10 +137,10 @@ class Estacionamento
                     if (HasVacancies(carros))
                     {
                         AddVehicle(typeVehicle);
-                        Console.WriteLine($"Você INSERIU um carro\n");
+                        Console.WriteLine($"\nVocê INSERIU um carro\n");
                         break;
                     }
-                    Console.WriteLine($"Não tem mais vagas para carros");
+                    Console.WriteLine($"\nNão tem mais vagas para carros\n");
                     break;
                 }
                 else
@@ -144,10 +148,10 @@ class Estacionamento
                     if (HasNoVacancies(carros))
                     {
                         RemoveVehicle(typeVehicle);
-                        Console.WriteLine($"Você REMOVEU um carro\n");
+                        Console.WriteLine($"\nVocê REMOVEU um carro\n");
                         break;
                     }
-                    Console.WriteLine($"Não tem mais carros para se retirar");
+                    Console.WriteLine($"\nNão tem mais carros para se retirar\n");
                     break;
                 }
             case 3:
@@ -156,10 +160,10 @@ class Estacionamento
                     if (HasVacancies(vans))
                     {
                         AddVehicle(typeVehicle);
-                        Console.WriteLine($"Você INSERIU uma van\n");
+                        Console.WriteLine($"\nVocê INSERIU uma van\n");
                         break;
                     }
-                    Console.WriteLine($"Não tem mais vagas para vans");
+                    Console.WriteLine($"\nNão tem mais vagas para vans\n");
                     break;
                 }
                 else
@@ -167,10 +171,10 @@ class Estacionamento
                     if (HasNoVacancies(vans))
                     {
                         RemoveVehicle(typeVehicle);
-                        Console.WriteLine($"Você REMOVEU uma van\n");
+                        Console.WriteLine($"\nVocê REMOVEU uma van\n");
                         break;
                     }
-                    Console.WriteLine($"Não tem mais vans para se retirar");
+                    Console.WriteLine($"\nNão tem mais vans para se retirar\n");
                     break;
                 }
             default:
@@ -278,6 +282,17 @@ class Estacionamento
             default:
                 break;
         }
+    }
+
+    public void CheckStatus()
+    {
+        int qtdMoto = motos.Where(x => x == null).Count();
+        int qtdCar = carros.Where(x => x == null).Count();
+        int qtdVan = vans.Where(x => x == null).Count();
+
+        Console.WriteLine("\nStatus do estacionamento:\n");
+        Console.WriteLine("- Quantidade de vagas totais: 12");
+        Console.WriteLine($"- Quantidade de vagas restantes: \n\tMotos --> {qtdMoto} \n\tCarros -> {qtdCar} \n\tVans ---> {qtdVan}\n");        
     }
 
 }
