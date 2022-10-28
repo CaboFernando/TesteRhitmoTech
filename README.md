@@ -7,8 +7,8 @@ Esse repositório tem com objetivo o teste técnico em lógica de programação
  
  - [100%] De acordo com as escolhas nos menu's, retornar os status do estacionamento (os métodos)
  
- - [100%] Criar opção que aparecerá após os status, para ir ao menu novamente ou sair da aplicação.
+ - [100%] Criar opção que aparecerá após os status, para ir ao menu novamente ou sair da aplicação
  
  - [100%] Criação opções no menu para verificar os status das vagas
  
- - [0%] Lógica para salvar veículos em vagas diferentes
+ - [100%] Lógica para salvar veículos em vagas diferentes
